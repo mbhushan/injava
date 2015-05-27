@@ -12,6 +12,9 @@ public class BinarySearch {
 		printArray(A);
 	}
 	
+	/*
+	 * print the int array
+	 */
 	public static void printArray(int [] data) {
 		if (data == null) {
 			return ;
@@ -22,6 +25,9 @@ public class BinarySearch {
 		System.out.println();
 	}
 	
+	/*
+	 * read input integers and store in array.
+	 */
 	public static void readInput() {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		

@@ -12,6 +12,10 @@ public class BinarySearch {
 		printArray(A);
 	}
 	
+	public static void binarySearch(int [] A) {
+		
+	}
+	
 	/*
 	 * print the int array
 	 */

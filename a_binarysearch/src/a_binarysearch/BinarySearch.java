@@ -7,24 +7,51 @@ import java.io.InputStreamReader;
 public class BinarySearch {
 
 	private static int [] A;
+	private static int key;
+	
 	public static void main(String [] args) {
+		System.out.println("Enter search array: ");
 		readInput();
 		printArray(A);
+		System.out.println("Enter search key: ");
+		readKey();
+		int index = binarySearch(A, key);
+		if (index >= 0) {
+			System.out.println("Key is present at index: " + index);
+		} else {
+			System.out.println("Key is not present in the array!");
+		}
+		
 	}
 	
-	public static void binarySearch(int [] A) {
+	public static void readKey() {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		try {
+			String str = br.readLine().trim();
+			key = Integer.parseInt(str);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static int binarySearch(int [] A, int key) {
 		int low = 0;
 		int high = A.length;
-		int mid = low + (high - low)/2;
-		while (low < high) {
-			
+		
+		while (low <= high) {
+			int mid = low + (high - low)/2;
+			if (key == A[mid]) {
+				return mid;
+			} else if (key < A[mid]) {
+				high = mid - 1;
+			} else {
+				low = mid + 1;
+			}
 		}
-				
+		return -1;
 	}
 	
-	/*
-	 * print the int array
-	 */
+	
 	public static void printArray(int [] data) {
 		if (data == null) {
 			return ;
@@ -35,9 +62,7 @@ public class BinarySearch {
 		System.out.println();
 	}
 	
-	/*
-	 * read input integers and store in array.
-	 */
+	
 	public static void readInput() {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		

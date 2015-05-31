@@ -79,3 +79,11 @@ public class BinarySearch {
 		}
 	}
 }
+/**
+Enter search array: 
+2 4 6 8 10
+2 4 6 8 10 
+Enter search key: 
+8
+Key is present at index: 3
+*/

@@ -33,7 +33,12 @@ public class BinarySearch {
 			e.printStackTrace();
 		}
 	}
-	
+/**
+ * Iterative version of the binary Search	
+ * @param A
+ * @param key
+ * @return
+ */
 	public static int binarySearch(int [] A, int key) {
 		int low = 0;
 		int high = A.length;

@@ -1,3 +1,6 @@
+/*
+ * @author: manib
+ */
 package a_binarysearch;
 
 import java.io.BufferedReader;

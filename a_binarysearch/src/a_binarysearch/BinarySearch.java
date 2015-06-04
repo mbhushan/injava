@@ -91,4 +91,11 @@ Enter search array:
 Enter search key: 
 8
 Key is present at index: 3
+=============================
+Enter search array: 
+2 4 6 8 10 12 14
+2 4 6 8 10 12 14 
+Enter search key: 
+2
+Key is present at index: 0
 */

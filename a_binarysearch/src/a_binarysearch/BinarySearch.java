@@ -85,6 +85,7 @@ public class BinarySearch {
 	}
 }
 /**
+ * INPUT OUTPUT samples:
 Enter search array: 
 2 4 6 8 10
 2 4 6 8 10 

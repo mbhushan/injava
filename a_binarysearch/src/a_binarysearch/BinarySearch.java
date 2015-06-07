@@ -40,6 +40,9 @@ public class BinarySearch {
  * Iterative version of the binary Search	
  */
 	public static int binarySearch(int [] A, int key) {
+		if (null == A) {
+			return -1;
+		}
 		int low = 0;
 		int high = A.length;
 		

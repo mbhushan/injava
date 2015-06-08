@@ -37,3 +37,8 @@ public class GCD {
 		}
 	}
 }
+/**
+Sample input/outpu:
+102 68
+GCD of 102 and 68 is: 34
+*/

@@ -15,7 +15,6 @@ public class RandIntClient {
 			System.out.print(rVal + " ");
 		}
 		System.out.println();
-		System.out.println("DONE!");
 	}
 	
 	public static void readInput() {

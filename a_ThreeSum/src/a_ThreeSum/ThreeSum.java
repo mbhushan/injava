@@ -11,11 +11,22 @@ public class ThreeSum {
 		readInput();
 		System.out.println("Elements in the array: ");
 		printArray(A);
+		System.out.println("triplets which sum to ZERO");
+		threeSumZero(A);
 	}
 	
 	//print all the triplets such that A[i] + A[j] + A[k] = 0
 	public static void threeSumZero(int [] arr) {
-		
+		int n = arr.length;
+		for (int i=0; i<n; i++) {
+			for (int j=i+1; j<n; j++) {
+				for (int k=j+1; k<n; k++) {
+					if ((arr[i] + arr[j] + arr[k]) == 0) {
+						System.out.println(arr[i] + " " + arr[j] + " " + arr[k]);
+					}
+				}
+			}
+		}
 	
 	}
 	
@@ -45,3 +56,21 @@ public class ThreeSum {
 	}
 
 }
+/**
+8
+  30
+ -30
+ -20
+ -10
+  40
+   0
+  10
+  15
+Elements in the array: 
+30 -30 -20 -10 40 0 10 15 
+triplets which sum to ZERO
+30 -30 0
+30 -20 -10
+-30 -10 40
+-10 0 10
+*/

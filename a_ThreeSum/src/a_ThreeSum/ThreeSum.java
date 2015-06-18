@@ -29,7 +29,8 @@ public class ThreeSum {
 		}
 	
 	}
-	
+
+	//print the array elements.
 	public static void printArray(int [] arr) {
 		if (null == arr) {
 			return;

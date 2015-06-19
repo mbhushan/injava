@@ -12,7 +12,9 @@ public class Factorial {
 		readInput();
 //		System.out.println();
 		long fact = factorialRecursive(N);
-		System.out.println(N + "! is: " + fact);
+		System.out.println(N + "! recursive is: " + fact);
+		fact = factorialIter(N);
+		System.out.println(N + "! iterative is: " + fact);
 		
 	}
 	
@@ -21,6 +23,14 @@ public class Factorial {
 			return 1;
 		}
 		return n * factorialRecursive(n-1);
+	}
+	
+	public static long factorialIter(int n) {
+		long result = 1;
+		for (int i=n; i>1; i--) {
+			result *= i;
+		}
+		return result;
 	}
 	
 	public static void readInput() {

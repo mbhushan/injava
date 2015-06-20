@@ -17,7 +17,6 @@ public class WeatherDataParser {
 	}
 	
 	public static double getMaxTemperatureForDay(String weatherJsonStr, int dayIndex) {
-		// TODO: add parsing code here
 		JSONObject obj = new JSONObject(weatherJsonStr);
 		JSONArray arr = obj.getJSONArray("list");
 		Double maxTemp = (Double)arr.getJSONObject(dayIndex).getJSONObject("temp").get("max");

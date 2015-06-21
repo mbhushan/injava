@@ -4,7 +4,7 @@ import java.io.InputStreamReader;
 
 public class SinCos {
 	public static void main(String [] args) {
-		// Theta is measured in radians.
+		// Theta is in radians.
 		double theta = Math.PI/3.0;
 		theta = readInput();
 		double result = doMath(theta);

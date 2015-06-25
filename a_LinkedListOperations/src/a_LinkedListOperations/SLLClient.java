@@ -17,5 +17,15 @@ public class SLLClient {
 			list.printList();
 		}
 		
+		System.out.println("Testing remove operations.");
+		for (int i=0; i<2; i++) {
+			System.out.println("removing front ..");
+			System.out.println("removed: " + list.removeFront());
+			list.printList();
+			System.out.println("removing back ..");
+			System.out.println("removed: " + list.removeBack());
+			list.printList();
+		}
+		
 	}
  }

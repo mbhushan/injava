@@ -50,6 +50,36 @@ public class LinkedList {
 		}
 	}
 	
+	public String removePosition(int pos) {
+		if (pos < 0 || pos >= N) {
+			System.out.println("Invalid position!");
+			return null;
+		}
+		if (pos == 0) {
+			return removeFront();
+		} else if (pos == N-1) {
+			return removeBack();
+		} else {
+			Node curr = head;
+			Node prev = head;
+			int index = 0;
+			while (index < pos) {
+				prev = curr;
+				curr = curr.next;
+				++index;
+			}
+			Node node = curr;
+			prev.next = curr.next;
+			--N;
+			return node.data;
+		}
+	}
+	
+	public int size() {
+		return N;
+	}
+	
+	
 	public void printList() {
 		Node curr = head;
 		while (curr != null) {

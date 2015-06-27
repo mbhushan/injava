@@ -25,3 +25,22 @@ public class QueueClient {
 		System.out.println("null");
 	}
 }
+
+/**
+Enqueued: A
+Enqueued: B
+Enqueued: C
+Removed: A
+Enqueued: D
+Enqueued: E
+Enqueued: F
+Removed: B
+Removed: C
+Enqueued: X
+Enqueued: Y
+Enqueued: Z
+Removed: D
+final size: 5
+Items in Queue
+E -> F -> X -> Y -> Z -> null
+*/

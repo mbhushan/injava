@@ -11,7 +11,7 @@ public class Queue<Item> implements Iterable<Item> {
 	
 	private Node front;
 	private Node back;
-	private int N;
+	private int N = 0;
 	
 	public void enqueue(Item item) {
 		Node node = new Node();
@@ -22,6 +22,7 @@ public class Queue<Item> implements Iterable<Item> {
 			back = front;
 		} else {
 			back.next = node;
+			back = back.next;
 		}
 		++N;
 	}

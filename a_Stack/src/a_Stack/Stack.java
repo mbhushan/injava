@@ -24,7 +24,13 @@ public class Stack<Item> implements Iterable<Item> {
 	}
 	
 	public Item pop() {
-		return null;
+		if (isEmpty()) {
+			return null;
+		}
+		Node node = first;
+		first = first.next;
+		--N;
+		return node.item;
 	}
 	
 	public boolean isEmpty() {

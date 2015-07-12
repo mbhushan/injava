@@ -10,13 +10,23 @@ public class BubbleSort {
 		
 		int N = A.length;
 		for (int i=0; i<N; i++) {
-			for (int j=N-1; j>i+1; j--) {
+			for (int j=N-1; j>=i+1; j--) {
 				if (less(A[j], A[j-1])) {
 					exchange(A, j, j-1);
 				}
 			}
 		}
 		assert isSorted(A, 0, N-1);
+	}
+	
+	public static void show(Comparable [] A) {
+		if (null == A) {
+			return;
+		}
+		for (int i=0; i<A.length; i++) {
+			System.out.print(A[i] + " ");
+		}
+		System.out.println();
 	}
 	
 	/* Helper functions */

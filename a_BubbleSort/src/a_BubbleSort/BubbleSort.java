@@ -2,6 +2,7 @@ package a_BubbleSort;
 
 public class BubbleSort {
 	
+	private BubbleSort() {}
 	
 	public static void sort(Comparable [] A) {
 		if (null == A || A.length <= 1) {

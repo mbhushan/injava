@@ -1,0 +1,13 @@
+Algorithm for SelectionSort(A, n)
+
+Input:
+A: an array
+N: number of elements in A to sort.
+
+Result: The elements of A are sorted into non-decreasing order.
+
+1.  For i=0 to n-1:
+	a. Set smallest to i.
+	b. For j = i+1 to n-1:
+	   if A[j] < A[smallest] then set smallest to j.
+	c. swap A[i] with A[smallest]

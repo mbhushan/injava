@@ -1,0 +1,11 @@
+Algorithm BubbleSort(A, n):
+
+Input:
+A: an array
+N: number of elements in A to sort.
+
+Result: The elements of A are sorted into non-decreasing order.
+
+1. for i=0 to n-1:
+   a. for j = n-1 to j >= i+1:
+      if A[j] is less than A[j-1] then exchange A[j] and A[j-1]

@@ -18,6 +18,8 @@ public class MergeSort {
 			return A;
 		}
 		
+		data = A;
+		
 		mergeSort(0, len-1);
 		return A;
 	}
@@ -43,7 +45,7 @@ public class MergeSort {
 		}
 		
 		for (int j=0; j<len2; j++) {
-			right[j] = data[mid + j];
+			right[j] = data[mid + j + 1];
 		}
 		
 		left[len1] = Integer.MAX_VALUE;
@@ -59,7 +61,6 @@ public class MergeSort {
 				data[k] = right[j];
 				++j;
 			}
-			++k;
 		}
 	}
 }

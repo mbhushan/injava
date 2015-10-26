@@ -9,7 +9,7 @@ public class MergeSortClient {
 
 	public static void main(String [] args) {
 		readInput();
-		A = MergeSort.sort(A);
+        MergeSort.sort(A);
 		System.out.println("After merge sorting: ");
 		showData();
 	}

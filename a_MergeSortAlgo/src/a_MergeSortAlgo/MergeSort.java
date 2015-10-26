@@ -7,21 +7,20 @@ public class MergeSort {
 	private MergeSort() {
 	}
 	
-	public static Integer[] sort(Integer [] A) {
+	public static void sort(Integer [] A) {
 		if (null == A) {
-			return A;
+			return ;
 		}
 		
 		int len = A.length;
 		
 		if (len == 0 || len == 1) {
-			return A;
+			return ;
 		}
 		
 		data = A;
 		
 		mergeSort(0, len-1);
-		return A;
 	}
 	
 	private static void mergeSort(int low, int high) {

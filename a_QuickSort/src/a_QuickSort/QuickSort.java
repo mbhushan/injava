@@ -6,7 +6,7 @@ public class QuickSort {
 	
 	private static Integer [] data;
 	
-	public static void Sort(Integer [] A) {
+	public static void sort(Integer [] A) {
 		if (null == A) {
 			return;
 		}

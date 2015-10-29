@@ -8,6 +8,7 @@ public class MergeSortClient {
 	private static Integer [] A;
 
 	public static void main(String [] args) {
+		System.out.println("Enter space separated numbers to be sorted:");
 		readInput();
         MergeSort.sort(A);
 		System.out.println("After merge sorting: ");

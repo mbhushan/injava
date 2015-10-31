@@ -8,6 +8,7 @@ public class RandQuickSortClient {
 	private static Integer [] A;
 
 	public static void main(String [] args) {
+		System.out.println("Enter space separated integers:");
 		readInput();
 		RandomizedQuickSort.sort(A);
 		System.out.println("After Randomized Quick Sorting: ");

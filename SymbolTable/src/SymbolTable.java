@@ -8,18 +8,20 @@ public class SymbolTable<Key, Value> {
 	
 	public void put(Key key, Value value) {}
 	
-	public void delete(Key key) {}
+	public void delete(Key key) {
+		this.put(key, null);
+	}
 	
 	public boolean contains(Key key) {
-		return false;
+		return this.get(key) != null;
 	}
 	
 	public boolean isEmpty() {
-		return true;
+		return this.size() == 0;
 	}
 	
 	public int size() {
-		return -1;
+		return 0;
 	}
 	
 	public Iterable<Key> keys() {

@@ -26,7 +26,22 @@ public class FrequencyCounter {
 		System.out.println("Total Words: " + totalWords);
 		int totalWords = freqMap.size();
 		System.out.println("Total unique words: " + totalWords);
-		printMap();
+		//printMap();
+		highestFrequency(1);
+	}
+	
+	public static void highestFrequency(int len) {
+		Iterator it = freqMap.entrySet().iterator();
+		String word = null;
+		Integer freq = Integer.MIN_VALUE;
+		while (it.hasNext()) {
+			Map.Entry<String, Integer> pair = (Map.Entry<String, Integer>)it.next();
+			if (pair.getKey().length() >= len && pair.getValue() > freq) {
+				word = pair.getKey();
+				freq = pair.getValue();
+			}
+		}
+		System.out.println(word + ": " + freq);
 	}
 	
 	

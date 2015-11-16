@@ -36,14 +36,22 @@ public class SymbolTable<Key extends Comparable<Key>, Value> {
 	
 	public Key ceiling(Key key) {return null; }
 	
+	//number of keys less than key
 	public int rank(Key key) { return -1; }
 	
+	//key of rank k
 	public Key select(int k) { return null; }
 	
-	public void deleteMin() {}
+	public void deleteMin() {
+		delete(min());
+	}
 	
-	public void deleteMax() {}
+	public void deleteMax() {
+		delete(max());
+	}
 	
-	public Iterable<Key> keys(Key lo, Key hi) { return null; }
+	public Iterable<Key> keys(Key lo, Key hi) { 
+		return null;
+	}
 
 }

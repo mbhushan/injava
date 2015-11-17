@@ -15,6 +15,7 @@ public class SequentialSearchST<Key, Value> {
 	
 	//first node of the linkedlist
 	private Node first;
+	private int size;
 	
 	public Value get(Key key) {
 		for (Node node = first; node != null; node = node.next) {
@@ -34,5 +35,24 @@ public class SequentialSearchST<Key, Value> {
 		}
 		// search miss, add this node to the front
 		first = new Node(key, value, first);
+		++size;
 	}
+	
+	public int size() {
+		return this.size;
+	}
+	
+	public Object [] keys() {
+		Key [] keyArr = (Key []) new Object[size()];
+		
+		int index = 0;
+		for (Node node=first; node!= null; node=node.next) {
+			keyArr[index] = node.key;
+			++index;
+		}
+		
+		return keyArr;
+	}
+	
+	
 }

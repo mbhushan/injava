@@ -6,11 +6,21 @@ import java.io.IOException;
 
 public class FrequencyCounter {
 
-	private static String TINY_TALE_FILENAME = "tale.txt";
+	private static String TINY_TALE_FILENAME = "tinyTale.txt";
 	private static SequentialSearchST<String, Integer> freqST = new SequentialSearchST<String, Integer>();
 	
 	public static void main(String [] args) {
-		
+		readInput(TINY_TALE_FILENAME);
+		printFrequency();
+	}
+	
+	public static void printFrequency() {
+		System.out.println("Frequency of words: ");
+		Object [] keys = freqST.keys();
+		for (int i=0; i<keys.length; i++) {
+			String st = (String) keys[i];
+			System.out.println(st + " = " + freqST.get(st));
+		}
 	}
 	
 	public static void readInput(String fname) {

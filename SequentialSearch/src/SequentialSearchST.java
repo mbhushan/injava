@@ -50,7 +50,6 @@ public class SequentialSearchST<Key, Value> {
 			keyArr[index] = node.key;
 			++index;
 		}
-		
 		return keyArr;
 	}
 	

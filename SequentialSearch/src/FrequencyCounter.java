@@ -12,6 +12,7 @@ public class FrequencyCounter {
 	public static void main(String [] args) {
 		readInput(TINY_TALE_FILENAME);
 		printFrequency();
+		maxFrequency(2);
 	}
 	
 	public static void printFrequency() {
@@ -21,6 +22,25 @@ public class FrequencyCounter {
 			String st = (String) keys[i];
 			System.out.println(st + " = " + freqST.get(st));
 		}
+	}
+	
+	public static void maxFrequency(int n) {
+		Object [] keys = freqST.keys();
+		String maxWord = "";
+		int maxCount = Integer.MIN_VALUE;
+		
+		for (int i=0; i<keys.length; i++) {
+			String st = (String) keys[i];
+			int len = st.length();
+			int freq = freqST.get(st);
+			
+			if ((len >= n) && (freq > maxCount)) {
+				maxWord = st;
+				maxCount = freq;
+			}
+		}
+		System.out.println("Word with highest frequency of length >= " + n + " is: ");
+		System.out.println(maxWord + " = " + maxCount);
 	}
 	
 	public static void readInput(String fname) {

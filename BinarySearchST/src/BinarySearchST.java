@@ -18,6 +18,24 @@ public class BinarySearchST<Key extends Comparable<Key>, Value> {
 		return N == 0;
 	}
 	
+	public void put(Key key, Value value) {
+		//search for key, update if found, exapand table if needed.
+		int i = rank(key);
+		
+		if ((i < N) && (keys[i].compareTo(key) == 0)) {
+			vals[i] = value;
+			return;
+		}
+		
+		for (int j=N; j>i; j--) {
+			keys[j] = keys[j-1];
+			vals[j] = vals[j-1];
+		}
+		keys[i] = key;
+		vals[i] = value;
+		++N;
+	}
+	
 	public int rank(Key key) {
 		int low = 0;
 		int high = N-1;
@@ -47,6 +65,10 @@ public class BinarySearchST<Key extends Comparable<Key>, Value> {
 		} else {
 			return null;
 		}
+	}
+	
+	public void delete(Key key) {
+		
 	}
 
 }

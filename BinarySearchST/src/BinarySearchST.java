@@ -70,5 +70,17 @@ public class BinarySearchST<Key extends Comparable<Key>, Value> {
 	public void delete(Key key) {
 		
 	}
+	
+	public Key min() {
+		return keys[0];
+	}
+	
+	public Key max() {
+		return keys[N-1];
+	}
+	
+	public Key select(int k) {
+		return keys[k];
+	}
 
 }

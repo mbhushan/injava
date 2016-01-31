@@ -1,60 +1,203 @@
 package i_BT_BinaryTree;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Stack;
 
 public class BinaryTreeClient {
 
 	private static TreeNode root;
 
 	public static void main(String[] args) {
-		int[] A = { 12, 9, 15, 13, 20, 14, 25, 30 };
+		// int[] A = { 12, 9, 15, 13, 20, 14, 25, 30 };
+		int[] A = { 10, 5, 15, 2, 7, 12, 18 };
 		BinaryTree bt = new BinaryTree();
 
 		int len = A.length;
 		for (int i = 0; i < len; i++) {
 			bt.insertIntoBST(A[i]);
 		}
-		
+
 		root = bt.getRootNode();
-		System.out.println("max depth: " + maxDepth(root));
-		System.out.println("min depth: " + minDepth1(root));
-		System.out.println("min depth: " + minDepth(root));
+		// System.out.println("max depth: " + maxDepth(root));
+		// System.out.println("min depth: " + minDepth1(root));
+		// System.out.println("min depth: " + minDepth(root));
 		System.out.println("min depth: " + minDepth2(root));
+		ArrayList<Integer> R = inorderTraversal(root);
+		// R = postorderIterative(root);
+		// R = preOrderIterative(root);
+		for (Integer r : R) {
+			System.out.print(r + " ");
+		}
+		System.out.println();
+
+		root = invertBinaryTree(root);
+		R = inorderTraversal(root);
+		for (Integer r : R) {
+			System.out.print(r + " ");
+		}
+		System.out.println();
+
 	}
 	
-	public static int minDepth2(TreeNode a) {
-        if(a == null){
-            return 0;
-        }
- 
-        LinkedList<TreeNode> nodes = new LinkedList<TreeNode>();
-        LinkedList<Integer> counts = new LinkedList<Integer>();
- 
-        nodes.add(a);
-        counts.add(1);
- 
-        while(!nodes.isEmpty()){
-            TreeNode curr = nodes.remove();
-            int count = counts.remove();
- 
-            if(curr.left != null){
-                nodes.add(curr.left);
-                counts.add(count+1);
-            }
- 
-            if(curr.right != null){
-                nodes.add(curr.right);
-                counts.add(count+1);
-            }
- 
-            if(curr.left == null && curr.right == null){
-                return count;
-            }
-        }
- 
-        return 0;
-    }
+	public static TreeNode sortedArrayToBST(final List<Integer> a) {
+		if (a == null) {
+			return null;
+		}
+		int start = 0;
+		int end = a.size() - 1;
+		return sortedArrayToBST(a, start, end);
+	}
 	
+	private static TreeNode sortedArrayToBST(List<Integer> A, int start, int end) {
+		if (end < start) {
+			return null;
+		}
+		int mid = start + (end - start)/2;
+		TreeNode node = new TreeNode(A.get(mid).intValue());
+		node.left = sortedArrayToBST(A, start, mid-1);
+		node.right = sortedArrayToBST(A, mid+1, end);
+		return node;
+	}
+
+	public static int isSymmetric(TreeNode a) {
+		if (a == null) {
+			return 1;
+		}
+		if (isSymmetric(a.left, a.right)) {
+			return 1;
+		}
+		return 0;
+	}
+
+	public static boolean isSymmetric(TreeNode l, TreeNode r) {
+		if (l == null && r == null) {
+			return true;
+		} else if (r == null || l == null) {
+			return false;
+		}
+
+		if (l.val != r.val)
+			return false;
+
+		if (!isSymmetric(l.left, r.right))
+			return false;
+		if (!isSymmetric(l.right, r.left))
+			return false;
+
+		return true;
+	}
+
+	public static TreeNode invertBinaryTree(TreeNode node) {
+		if (node == null) {
+			return node;
+		}
+		node.left = invertBinaryTree(node.left);
+		node.right = invertBinaryTree(node.right);
+		TreeNode temp = node.left;
+		node.left = node.right;
+		node.right = temp;
+		return node;
+	}
+
+	public static ArrayList<Integer> preOrderIterative(TreeNode node) {
+		Stack<TreeNode> stack = new Stack<TreeNode>();
+		ArrayList<Integer> values = new ArrayList<Integer>();
+
+		while (node != null || !stack.isEmpty()) {
+			if (null == node) {
+				node = stack.pop();
+			}
+
+			// System.out.print(node.data + " -> ");
+			values.add(node.val);
+
+			if (node.right != null) {
+				stack.push(node.right);
+			}
+			node = node.left;
+		}
+		return values;
+	}
+
+	public static ArrayList<Integer> postorderIterative(TreeNode node) {
+		Stack<TreeNode> stack = new Stack<TreeNode>();
+		ArrayList<Integer> values = new ArrayList<Integer>();
+
+		while (node != null || !stack.isEmpty()) {
+
+			if (node == null) {
+				while (!stack.isEmpty() && (node == stack.peek().right)) {
+					node = stack.pop();
+					// System.out.print(node.data + " -> ");
+					values.add(node.val);
+				}
+				node = stack.isEmpty() ? null : stack.peek().right;
+			}
+			if (node != null) {
+				stack.push(node);
+				node = node.left;
+			}
+		}
+		return values;
+	}
+
+	public static ArrayList<Integer> inorderTraversal(TreeNode node) {
+		Stack<TreeNode> stack = new Stack<TreeNode>();
+		ArrayList<Integer> values = new ArrayList<Integer>();
+
+		while (node != null || !stack.isEmpty()) {
+
+			if (null == node) {
+				node = stack.pop();
+				// System.out.print(node.val + " -> ");
+				values.add(node.val);
+				node = node.right;
+			}
+			if (node != null) {
+				stack.push(node);
+				node = node.left;
+			}
+
+		}
+
+		return values;
+	}
+
+	public static int minDepth2(TreeNode a) {
+		if (a == null) {
+			return 0;
+		}
+
+		LinkedList<TreeNode> nodes = new LinkedList<TreeNode>();
+		LinkedList<Integer> counts = new LinkedList<Integer>();
+
+		nodes.add(a);
+		counts.add(1);
+
+		while (!nodes.isEmpty()) {
+			TreeNode curr = nodes.remove();
+			int count = counts.remove();
+
+			if (curr.left != null) {
+				nodes.add(curr.left);
+				counts.add(count + 1);
+			}
+
+			if (curr.right != null) {
+				nodes.add(curr.right);
+				counts.add(count + 1);
+			}
+
+			if (curr.left == null && curr.right == null) {
+				return count;
+			}
+		}
+
+		return 0;
+	}
+
 	public static int minDepth(TreeNode a) {
 		if (a == null) {
 			return 0;
@@ -70,31 +213,33 @@ public class BinaryTreeClient {
 		}
 		return Math.min(minDepth(a.left), minDepth(a.right)) + 1;
 	}
-	
+
 	public static int maxDepth(TreeNode a) {
 		if (a == null) {
 			return 0;
 		}
 		int left = maxDepth(a.left);
 		int right = maxDepth(a.right);
-		
+
 		return Math.max(left, right) + 1;
 	}
-	
+
 	public static int minDepth1(TreeNode a) {
 		return minDepthBT(a, 0);
 	}
-	
+
 	public static int minDepthBT(TreeNode node, int depth) {
-		if (node == null){
+		if (node == null) {
 			return depth;
-		} 
-		if (node.left == null && node.right == null) { return depth+1; }
-		   
-		  int x = node.left != null ? minDepthBT(node.left, depth+1) : depth;
-		  int y = node.right != null ? minDepthBT(node.right, depth+1): depth;
-		   
-		  return (x > y) ? y : x;
-		
+		}
+		if (node.left == null && node.right == null) {
+			return depth + 1;
+		}
+
+		int x = node.left != null ? minDepthBT(node.left, depth + 1) : depth;
+		int y = node.right != null ? minDepthBT(node.right, depth + 1) : depth;
+
+		return (x > y) ? y : x;
+
 	}
 }

@@ -5,6 +5,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
 
+import javax.print.attribute.HashAttributeSet;
+
 public class BinaryTreeClient {
 
 	private static TreeNode root;
@@ -39,6 +41,23 @@ public class BinaryTreeClient {
 		}
 		System.out.println();
 
+	}
+	
+	public int hasPathSum(TreeNode a, int b)  {
+		if(checkPathSum(a, b)) {
+			return 1;
+		}
+		return 0;
+	}
+	
+	public static boolean checkPathSum(TreeNode a, int b) {
+		if (a == null) {
+			return b == 0 ;
+		} else {
+			b = b - a.val;
+			return (checkPathSum(a.left, b) || checkPathSum(a.right, b));
+		}
+		
 	}
 	
 	public static TreeNode sortedArrayToBST(final List<Integer> a) {

@@ -42,6 +42,76 @@ public class BinaryTreeClient {
 		printSpiralLevelOrder(root);
 
 	}
+	
+	public static int lca(TreeNode a, int n1, int n2) {
+		
+		// Initialize n1 and n2 as not visited
+        boolean v1 = false, v2 = false;
+ 
+        // Find lca of n1 and n2 using the technique discussed above
+        TreeNode lca = findLCAUtil(a, v1, v2, n1, n2);
+ 
+        // Return LCA only if both n1 and n2 are present in tree
+        if (v1 && v2 || v1 && find(lca, n2) || v2 && find(lca, n1)) {
+            return lca.val;
+        }
+ 
+        // Else return NULL
+        return -1;
+	}
+	
+	// This function returns pointer to LCA of two given values n1 and n2.
+    // v1 is set as true by this function if n1 is found
+   // v2 is set as true by this function if n2 is found
+   private static TreeNode findLCAUtil(TreeNode node, boolean v1, boolean v2, int n1, int n2) {
+        // Base case
+        if (node == null) {
+            return null;
+        }
+ 
+        // If either n1 or n2 matches with root's key, report the presence
+        // by setting v1 or v2 as true and return root (Note that if a key
+        // is ancestor of other, then the ancestor key becomes LCA)
+        if (node.val == n1) {
+            v1 = true;
+            return node;
+        }
+        if (node.val == n2) {
+            v2 = true;
+            return node;
+        }
+ 
+        // Look for keys in left and right subtrees
+        TreeNode left_lca = findLCAUtil(node.left, v1, v2, n1, n2);
+        TreeNode right_lca = findLCAUtil(node.right, v1, v2, n1, n2);
+ 
+        // If both of the above calls return Non-NULL, then one key
+        // is present in once subtree and other is present in other,
+        // So this node is the LCA
+        if (left_lca != null && right_lca != null) {
+            return node;
+        }
+ 
+        // Otherwise check if left subtree or right subtree is LCA
+        return (left_lca != null) ? left_lca : right_lca;
+    }
+	
+	 // Returns true if key k is present in tree rooted with root
+    public static boolean find(TreeNode node, int k) {
+        // Base Case
+        if (root == null) {
+            return false;
+        }
+ 
+        // If key is present at root, or in left subtree or right subtree,
+        // return true;
+        if (node.val == k || find(node.left, k) || find(node.right, k)) {
+            return true;
+        }
+ 
+        // Else return false
+        return false;
+    }
 
 	public static ArrayList<ArrayList<Integer>>  printSpiralLevelOrder(TreeNode node) {
 		if (node == null) {

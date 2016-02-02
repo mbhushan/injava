@@ -43,12 +43,33 @@ public class BinaryTreeClient {
 
 	}
 	
-	public int hasPathSum(TreeNode a, int b)  {
-		if(checkPathSum(a, b)) {
-			return 1;
-		}
-		return 0;
-	}
+//	public int hasPathSum(TreeNode a, int b)  {
+//		if(checkPathSum(a, b)) {
+//			return 1;
+//		}
+//		return 0;
+//	}
+	
+	boolean haspathSum(TreeNode node, int sum) {
+        if (node == null) {
+            return (sum == 0);
+        } else {
+            boolean ans = false;
+ 
+            /* otherwise check both subtrees */
+            int subsum = sum - node.val;
+            if (subsum == 0 && node.left == null && node.right == null) {
+                return true;
+            }
+            if (node.left != null) {
+                ans = ans || haspathSum(node.left, subsum);
+            }
+            if (node.right != null) {
+                ans = ans || haspathSum(node.right, subsum);
+            }
+            return ans;
+        }
+    }
 	
 	public static boolean checkPathSum(TreeNode a, int b) {
 		if (a == null) {

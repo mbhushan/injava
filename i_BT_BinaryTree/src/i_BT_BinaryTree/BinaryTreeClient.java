@@ -11,7 +11,8 @@ public class BinaryTreeClient {
 
 	public static void main(String[] args) {
 		// int[] A = { 12, 9, 15, 13, 20, 14, 25, 30 };
-		int[] A = { 10, 5, 15, 2, 7, 12, 18 };
+		// int[] A = { 10, 5, 15, 2, 7, 12, 18 };
+		int[] A = { 6, 3, 8, 7, 9, 1, 4 };
 		BinaryTree bt = new BinaryTree();
 
 		int len = A.length;
@@ -41,95 +42,217 @@ public class BinaryTreeClient {
 
 		printSpiralLevelOrder(root);
 
-	}
-	
-	public static int lca(TreeNode a, int n1, int n2) {
-		
-		// Initialize n1 and n2 as not visited
-        boolean v1 = false, v2 = false;
- 
-        // Find lca of n1 and n2 using the technique discussed above
-        TreeNode lca = findLCAUtil(a, v1, v2, n1, n2);
- 
-        // Return LCA only if both n1 and n2 are present in tree
-        if (v1 && v2 || v1 && find(lca, n2) || v2 && find(lca, n1)) {
-            return lca.val;
-        }
- 
-        // Else return NULL
-        return -1;
-	}
-	
-	// This function returns pointer to LCA of two given values n1 and n2.
-    // v1 is set as true by this function if n1 is found
-   // v2 is set as true by this function if n2 is found
-   private static TreeNode findLCAUtil(TreeNode node, boolean v1, boolean v2, int n1, int n2) {
-        // Base case
-        if (node == null) {
-            return null;
-        }
- 
-        // If either n1 or n2 matches with root's key, report the presence
-        // by setting v1 or v2 as true and return root (Note that if a key
-        // is ancestor of other, then the ancestor key becomes LCA)
-        if (node.val == n1) {
-            v1 = true;
-            return node;
-        }
-        if (node.val == n2) {
-            v2 = true;
-            return node;
-        }
- 
-        // Look for keys in left and right subtrees
-        TreeNode left_lca = findLCAUtil(node.left, v1, v2, n1, n2);
-        TreeNode right_lca = findLCAUtil(node.right, v1, v2, n1, n2);
- 
-        // If both of the above calls return Non-NULL, then one key
-        // is present in once subtree and other is present in other,
-        // So this node is the LCA
-        if (left_lca != null && right_lca != null) {
-            return node;
-        }
- 
-        // Otherwise check if left subtree or right subtree is LCA
-        return (left_lca != null) ? left_lca : right_lca;
-    }
-	
-	 // Returns true if key k is present in tree rooted with root
-    public static boolean find(TreeNode node, int k) {
-        // Base Case
-        if (root == null) {
-            return false;
-        }
- 
-        // If key is present at root, or in left subtree or right subtree,
-        // return true;
-        if (node.val == k || find(node.left, k) || find(node.right, k)) {
-            return true;
-        }
- 
-        // Else return false
-        return false;
-    }
+		int sum = 17;
+		System.out.println("printing paths with sum: " + sum);
+		ArrayList<ArrayList<Integer>> result = pathSum(root, sum);
 
-	public static ArrayList<ArrayList<Integer>>  printSpiralLevelOrder(TreeNode node) {
+		for (ArrayList<Integer> r : result) {
+			System.out.println(r);
+		}
+		System.out.println();
+		System.out.println("path sum numbers: ");
+		int ans = sumNumbers(root);
+		System.out.println("ans of sum numbers of all paths: " + ans);
+
+	}
+	
+	private static int sum = 0;
+	 public static int sumNumbers(TreeNode root) {
+	        // Start typing your Java solution below
+	        // DO NOT write main() function
+	        if(root == null) return 0;
+
+	        int cur = 0;
+	        sum = 0;
+	        doDFS(root, cur);
+	        
+	        return sum;
+	    }
+	 
+	 public static void doDFS(TreeNode root, int cur) {
+	        if(root == null) return;
+	        
+	        // keep track of the current sum
+	        cur = cur * 10 + root.val;
+	        if(root.left == null && root.right == null) {
+	            // when it reach the leaf, then add up the sum
+	            // to the static sum.
+	            sum += cur;
+	            return;
+	        }
+	        
+	        doDFS(root.left, cur);
+	        doDFS(root.right, cur);
+	        
+	        return;
+	    }
+
+	public static int sumNumbers1(TreeNode node) {
+
+		ArrayList<Integer> path = new ArrayList<Integer>(10000);
+		long sum = 0;
+		int pathlen = 0;
+		sum = genPaths(node, path, pathlen, sum);
+		System.out.println("sum num: " + sum);
+		
+		return (int)sum % 1003;
+	}
+
+	private static long genPaths(TreeNode node, ArrayList<Integer> path, int pathlen, long sum) {
+		if (node == null)
+			return 0;
+		// append this node to the path array
+		path.set(pathlen, node.val);
+		pathlen++;
+		// it's a leaf, so print the path that led to here
+		if (node.left == null && node.right == null) {
+			sum += printArray(path, pathlen);
+			//path.remove(path.size() - 1);
+		} else {
+			// otherwise try both subtrees
+			genPaths(node.left, path, pathlen, sum);
+			genPaths(node.right, path, pathlen, sum);
+		}
+		
+		return sum;
+	}
+
+	private static long printArray(ArrayList<Integer> path, int pathlen) {
+		int size = path.size();
+		long sum = 0;
+		for (int i = 0; i < pathlen; i++) {
+			System.out.print(path.get(i).intValue() + " ");
+			sum = sum * 10 + path.get(i).intValue();
+		}
+		System.out.println();
+		System.out.println("sum in print arr: " + sum);
+		System.out.println();
+		return sum;
+	}
+	
+	public static ArrayList<ArrayList<Integer>> pathSum(TreeNode root, int sum) {
+		ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
+		if (root == null)
+			return result;
+
+		ArrayList<Integer> list = new ArrayList<Integer>();
+		list.add(root.val);
+		dfs(root, sum - root.val, result, list);
+		return result;
+	}
+
+	private static void dfs(TreeNode t, int sum,
+			ArrayList<ArrayList<Integer>> result, ArrayList<Integer> list) {
+		if (t.left == null && t.right == null && sum == 0) {
+			ArrayList<Integer> temp = new ArrayList<Integer>();
+			temp.addAll(list);
+			result.add(temp);
+		}
+
+		// search path of left node
+		if (t.left != null) {
+			list.add(t.left.val);
+			dfs(t.left, sum - t.left.val, result, list);
+			list.remove(list.size() - 1);
+		}
+
+		// search path of right node
+		if (t.right != null) {
+			list.add(t.right.val);
+			dfs(t.right, sum - t.right.val, result, list);
+			list.remove(list.size() - 1);
+		}
+	}
+
+	public static int lca(TreeNode a, int n1, int n2) {
+
+		// Initialize n1 and n2 as not visited
+		boolean v1 = false, v2 = false;
+
+		// Find lca of n1 and n2 using the technique discussed above
+		TreeNode lca = findLCAUtil(a, v1, v2, n1, n2);
+
+		// Return LCA only if both n1 and n2 are present in tree
+		if (v1 && v2 || v1 && find(lca, n2) || v2 && find(lca, n1)) {
+			return lca.val;
+		}
+
+		// Else return NULL
+		return -1;
+	}
+
+	// This function returns pointer to LCA of two given values n1 and n2.
+	// v1 is set as true by this function if n1 is found
+	// v2 is set as true by this function if n2 is found
+	private static TreeNode findLCAUtil(TreeNode node, boolean v1, boolean v2,
+			int n1, int n2) {
+		// Base case
+		if (node == null) {
+			return null;
+		}
+
+		// If either n1 or n2 matches with root's key, report the presence
+		// by setting v1 or v2 as true and return root (Note that if a key
+		// is ancestor of other, then the ancestor key becomes LCA)
+		if (node.val == n1) {
+			v1 = true;
+			return node;
+		}
+		if (node.val == n2) {
+			v2 = true;
+			return node;
+		}
+
+		// Look for keys in left and right subtrees
+		TreeNode left_lca = findLCAUtil(node.left, v1, v2, n1, n2);
+		TreeNode right_lca = findLCAUtil(node.right, v1, v2, n1, n2);
+
+		// If both of the above calls return Non-NULL, then one key
+		// is present in once subtree and other is present in other,
+		// So this node is the LCA
+		if (left_lca != null && right_lca != null) {
+			return node;
+		}
+
+		// Otherwise check if left subtree or right subtree is LCA
+		return (left_lca != null) ? left_lca : right_lca;
+	}
+
+	// Returns true if key k is present in tree rooted with root
+	public static boolean find(TreeNode node, int k) {
+		// Base Case
+		if (root == null) {
+			return false;
+		}
+
+		// If key is present at root, or in left subtree or right subtree,
+		// return true;
+		if (node.val == k || find(node.left, k) || find(node.right, k)) {
+			return true;
+		}
+
+		// Else return false
+		return false;
+	}
+
+	public static ArrayList<ArrayList<Integer>> printSpiralLevelOrder(
+			TreeNode node) {
 		if (node == null) {
 			return null;
 		}
 		Stack<TreeNode> stackOne = new Stack<TreeNode>();
 		Stack<TreeNode> stackTwo = new Stack<TreeNode>();
 		ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
-		
+
 		stackOne.add(node);
 
 		ArrayList<Integer> row = new ArrayList<Integer>();
 		while (!stackOne.isEmpty() || !stackTwo.isEmpty()) {
-			
+
 			while (!stackOne.isEmpty()) {
 				TreeNode temp = stackOne.pop();
-				//System.out.print(temp.val + " ");
-			    row.add(temp.val);	
+				// System.out.print(temp.val + " ");
+				row.add(temp.val);
 				if (temp.left != null) {
 					stackTwo.push(temp.left);
 				}
@@ -141,10 +264,10 @@ public class BinaryTreeClient {
 				result.add(row);
 				row = new ArrayList<Integer>();
 			}
-			//System.out.println();
+			// System.out.println();
 			while (!stackTwo.isEmpty()) {
 				TreeNode temp = stackTwo.pop();
-				//System.out.print(temp.val + " ");
+				// System.out.print(temp.val + " ");
 				row.add(temp.val);
 				if (temp.right != null) {
 					stackOne.push(temp.right);
@@ -157,15 +280,15 @@ public class BinaryTreeClient {
 				result.add(row);
 				row = new ArrayList<Integer>();
 			}
-			//System.out.println();
+			// System.out.println();
 		}
 		System.out.println("printing result for spiral order:");
 		for (ArrayList<Integer> R : result) {
 			System.out.println(R);
 		}
-		
+
 		return result;
-		
+
 	}
 
 	public static void spiralLevelOrder(TreeNode node) {

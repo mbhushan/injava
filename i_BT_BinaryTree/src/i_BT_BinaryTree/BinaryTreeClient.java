@@ -56,36 +56,84 @@ public class BinaryTreeClient {
 
 	}
 	
-	private static int sum = 0;
-	 public static int sumNumbers(TreeNode root) {
-	        // Start typing your Java solution below
-	        // DO NOT write main() function
-	        if(root == null) return 0;
-
-	        int cur = 0;
-	        sum = 0;
-	        doDFS(root, cur);
-	        
-	        return sum;
+	public static int kthsmallest(TreeNode root, int k) {
+		Stack<TreeNode> stack = new Stack<TreeNode>();
+		 
+	    TreeNode p = root;
+	    int result = 0;
+	 
+	    while(!stack.isEmpty() || p!=null){
+	        if(p!=null){
+	            stack.push(p);
+	            p = p.left;
+	        }else{
+	            TreeNode t = stack.pop();
+	            k--;
+	            if(k==0)
+	                result = t.val;
+	            p = t.right;
+	        }
 	    }
 	 
-	 public static void doDFS(TreeNode root, int cur) {
-	        if(root == null) return;
-	        
-	        // keep track of the current sum
-	        cur = cur * 10 + root.val;
-	        if(root.left == null && root.right == null) {
-	            // when it reach the leaf, then add up the sum
-	            // to the static sum.
-	            sum += cur;
-	            return;
-	        }
-	        
-	        doDFS(root.left, cur);
-	        doDFS(root.right, cur);
-	        
-	        return;
-	    }
+	    return result;
+    }
+
+	public static int sumNumbers(TreeNode root) {
+		if (root == null)
+			return 0;
+		int ans =  sumNumbersHelper(root, root.val, 0);
+		
+		return ans % 1003;
+	}
+
+	private static int sumNumbersHelper(TreeNode root, int path, int sum) {
+		if (root.left == null && root.right == null) { // reach a leaf
+			return sum + path;
+		}
+
+		if (root.left != null) { // go to left subtree
+			sum = sumNumbersHelper(root.left, path * 10 + root.left.val, sum);
+		}
+		if (root.right != null) { // go to right subtree
+			sum = sumNumbersHelper(root.right, path * 10 + root.right.val, sum);
+		}
+
+		return sum;
+	}
+
+	private static int sum = 0;
+
+	public static int sumNumbers2(TreeNode root) {
+		// Start typing your Java solution below
+		// DO NOT write main() function
+		if (root == null)
+			return 0;
+
+		int cur = 0;
+		sum = 0;
+		doDFS(root, cur);
+
+		return sum;
+	}
+
+	public static void doDFS(TreeNode root, int cur) {
+		if (root == null)
+			return;
+
+		// keep track of the current sum
+		cur = cur * 10 + root.val;
+		if (root.left == null && root.right == null) {
+			// when it reach the leaf, then add up the sum
+			// to the static sum.
+			sum += cur;
+			return;
+		}
+
+		doDFS(root.left, cur);
+		doDFS(root.right, cur);
+
+		return;
+	}
 
 	public static int sumNumbers1(TreeNode node) {
 
@@ -94,11 +142,12 @@ public class BinaryTreeClient {
 		int pathlen = 0;
 		sum = genPaths(node, path, pathlen, sum);
 		System.out.println("sum num: " + sum);
-		
-		return (int)sum % 1003;
+
+		return (int) sum % 1003;
 	}
 
-	private static long genPaths(TreeNode node, ArrayList<Integer> path, int pathlen, long sum) {
+	private static long genPaths(TreeNode node, ArrayList<Integer> path,
+			int pathlen, long sum) {
 		if (node == null)
 			return 0;
 		// append this node to the path array
@@ -107,13 +156,13 @@ public class BinaryTreeClient {
 		// it's a leaf, so print the path that led to here
 		if (node.left == null && node.right == null) {
 			sum += printArray(path, pathlen);
-			//path.remove(path.size() - 1);
+			// path.remove(path.size() - 1);
 		} else {
 			// otherwise try both subtrees
 			genPaths(node.left, path, pathlen, sum);
 			genPaths(node.right, path, pathlen, sum);
 		}
-		
+
 		return sum;
 	}
 
@@ -129,7 +178,7 @@ public class BinaryTreeClient {
 		System.out.println();
 		return sum;
 	}
-	
+
 	public static ArrayList<ArrayList<Integer>> pathSum(TreeNode root, int sum) {
 		ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
 		if (root == null)

@@ -33,12 +33,12 @@ public class BinaryTreeClient {
 		}
 		System.out.println();
 
-		root = invertBinaryTree(root);
-		R = inorderTraversal(root);
-		for (Integer r : R) {
-			System.out.print(r + " ");
-		}
-		System.out.println();
+//		root = invertBinaryTree(root);
+//		R = inorderTraversal(root);
+//		for (Integer r : R) {
+//			System.out.print(r + " ");
+//		}
+//		System.out.println();
 
 		printSpiralLevelOrder(root);
 
@@ -53,7 +53,33 @@ public class BinaryTreeClient {
 		System.out.println("path sum numbers: ");
 		int ans = sumNumbers(root);
 		System.out.println("ans of sum numbers of all paths: " + ans);
+		
+		TreeNode rt = flatten(root);
+		System.out.println("printing flattened tree: ");
+		while (rt != null) {
+			System.out.print(rt.val + " -> ");
+			rt = rt.right;
+		}
+		System.out.println("null");
+		System.out.println("done flatting");
 
+	}
+	
+	public static TreeNode flatten(TreeNode node) {
+		TreeNode rt = node;
+		while (node != null) {
+			if (node.left != null) {
+				TreeNode pre = node.left;
+				while (pre.right != null) {
+					pre = pre.right;
+				}
+				pre.right = node.right;
+				node.right = node.left;
+				node.left = null;
+			}
+			node = node.right;
+		}
+		return rt;
 	}
 	
 	public static int kthsmallest(TreeNode root, int k) {

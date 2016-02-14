@@ -72,7 +72,7 @@ public class MergeLists {
 			q = a.get(i);
 			
 			while (q != null) {
-				System.out.println("inside while");
+				//System.out.println("inside while");
 				if (p.next == null) {
 					p.next = q;
 					break;

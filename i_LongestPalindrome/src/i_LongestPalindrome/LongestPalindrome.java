@@ -1,13 +1,13 @@
 package i_LongestPalindrome;
 
-import java.util.ArrayList;
 
 public class LongestPalindrome {
 
-	//private static ArrayList<String> palindromeList = new ArrayList<String>();
-	//private static String longestPalindrome = "";
-	
-	public static void main(String [] args) {
+	// private static ArrayList<String> palindromeList = new
+	// ArrayList<String>();
+	// private static String longestPalindrome = "";
+
+	public static void main(String[] args) {
 		String str = "aaaabaaa";
 		str = "av";
 		System.out.println("longest palindrome: " + longestPalindrome(str));
@@ -15,15 +15,15 @@ public class LongestPalindrome {
 
 	public static String longestPalindrome(String str) {
 		int len = str.length();
-String longestPalindrome = "";
+		String longestPalindrome = "";
 		String evenPalin = "";
 		String oddPalin = "";
-if (len < 2) {
+		if (len < 2) {
 			return str;
 		}
-if ((len == 2) && (str.charAt(0) != str.charAt(1))) {
-	return String.valueOf(str.charAt(0));
-}
+		if ((len == 2) && (str.charAt(0) != str.charAt(1))) {
+			return String.valueOf(str.charAt(0));
+		}
 		for (int i = 0; i < len - 1; i++) {
 			oddPalin = oddLengthPalindrome(str, i);
 
@@ -37,7 +37,7 @@ if ((len == 2) && (str.charAt(0) != str.charAt(1))) {
 				longestPalindrome = oddPalin;
 			}
 		}
-		
+
 		return longestPalindrome;
 	}
 
@@ -56,7 +56,7 @@ if ((len == 2) && (str.charAt(0) != str.charAt(1))) {
 				String palindrome = str.substring(i, j + 1);
 				if (palindrome.length() > 1) {
 					// System.out.println(palindrome);
-					//palindromeList.add(palindrome);
+					// palindromeList.add(palindrome);
 					++evenCount;
 					if (palindrome.length() > longestPalindrome.length()) {
 						longestPalindrome = palindrome;
@@ -83,7 +83,7 @@ if ((len == 2) && (str.charAt(0) != str.charAt(1))) {
 				String palindrome = str.substring(i, j + 1);
 				if (palindrome.length() > 1) {
 					// System.out.println(palindrome);
-					//palindromeList.add(palindrome);
+					// palindromeList.add(palindrome);
 					++oddCount;
 					if (palindrome.length() > longestPalindrome.length()) {
 						longestPalindrome = palindrome;

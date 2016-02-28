@@ -45,7 +45,7 @@ public class Islands
         boolean visited[][] = new boolean[ROW][COL];
  
  
-        // Initialize count as 0 and travese through the all cells
+        // Initialize count as 0 and traverse through the all cells
         // of given matrix
         int count = 0;
         for (int i = 0; i < ROW; ++i)

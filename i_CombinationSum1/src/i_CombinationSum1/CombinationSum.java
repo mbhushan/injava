@@ -5,7 +5,31 @@ import java.util.Collections;
 
 public class CombinationSum {
 	
-	 public ArrayList<ArrayList<Integer>> combinationSum(ArrayList<Integer>  candidates, int target) {
+	 public ArrayList<ArrayList<Integer>> combinationSum(ArrayList<Integer> candidates, int target) {  
+		   ArrayList<ArrayList<Integer>> results = new ArrayList<ArrayList<Integer>>();  
+		   Collections.sort(candidates);  
+		   addUp(candidates, 0, target, new ArrayList<Integer>(), results);  
+		   return results;  
+		 }  
+		   
+		 private void addUp(ArrayList<Integer> candidates, int start, int target, ArrayList<Integer> path,  
+		     ArrayList<ArrayList<Integer>> results) {  
+		   if (start < 0 || target < 0) return;  
+		   
+		   if (0 == target) {  
+		     ArrayList<Integer> res = new ArrayList<Integer>(path);  
+		     results.add(res);  
+		   } else {  
+		     for (int i=start; i<candidates.size() && candidates.get(i).intValue() <= target; ++i) {  
+		       // if (candidates[i] > target) continue; // if we don't sort the data at the beginning, we skip large numbers here  
+		       path.add(candidates.get(i).intValue());  
+		       addUp(candidates, i, target - candidates.get(i).intValue(), path, results);  
+		       path.remove(path.size() - 1);  
+		     }  
+		   }  
+		 } 
+		 
+	 public ArrayList<ArrayList<Integer>> combinationSum2(ArrayList<Integer>  candidates, int target) {
 	        // Start typing your Java solution below
 	        // DO NOT write main() function
 	        ArrayList<ArrayList<Integer>> ret = new ArrayList<ArrayList<Integer>>();

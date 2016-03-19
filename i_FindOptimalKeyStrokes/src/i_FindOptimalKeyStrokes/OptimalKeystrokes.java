@@ -51,12 +51,14 @@ public class OptimalKeystrokes {
 	public static void main(String[] args) {
 		int n = 20;
 
+		findoptimalDP(8);
 		for (int i = 1; i <= n; i++) {
 			//System.out.println("Max A's with " + i + " keystrokes: "
 			//		+ findoptimal(i));
 			System.out.println("DP Max A's with " + i + " keystrokes: "
 					+ findoptimalDP(i));
 		}
+		
 	}
 
 	public static int findoptimal(int N) {

@@ -1,5 +1,7 @@
 package hash_BinaryTreeVerticalOrder;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Stack;
 
 class Node {
@@ -18,6 +20,49 @@ class Node {
 public class BinaryTree {
 
 	private Node root = null;
+	
+	
+	public void verticalTraversal() {
+		HashMap<Integer, ArrayList<Integer>> hmap = new HashMap<Integer, ArrayList<Integer>>();
+		
+		verticalTraversal(root, hmap, 0);
+		
+		int min = 0;
+		int max = 0;
+		for (Integer key : hmap.keySet()) {
+			if (key < min) {
+				min = key; 
+			}
+			if (key > max) {
+				max = key;
+			}
+		}
+		
+		for (int key = min; key <= max; key++) {
+			ArrayList<Integer> list = hmap.get(key);
+			for (int v: list) {
+				System.out.print(v + " ");
+			}
+			System.out.println();
+		}
+		
+	}
+	
+	private void verticalTraversal(Node node, HashMap<Integer, ArrayList<Integer>> hmap, int hd) {
+		if (node == null) {
+			return ;
+		}
+		ArrayList<Integer> list = new ArrayList<Integer>();
+		if (hmap.containsKey(hd)) {
+			list = hmap.get(hd);
+		}
+		list.add(node.value);
+		hmap.put(hd, list);
+		
+		verticalTraversal(node.left, hmap, hd-1);
+		verticalTraversal(node.right, hmap, hd+1);
+		
+	}
 	
 	public void insertBinaryTree(int val) {
 			root = insertIntoBinaryTree(root, val);

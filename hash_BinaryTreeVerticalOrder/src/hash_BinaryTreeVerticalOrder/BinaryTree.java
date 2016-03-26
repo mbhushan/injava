@@ -1,5 +1,7 @@
 package hash_BinaryTreeVerticalOrder;
 
+import java.util.Stack;
+
 class Node {
 	int value;
 	Node left;
@@ -23,7 +25,7 @@ public class BinaryTree {
 	
 	private Node insertIntoBinaryTree(Node node, int val) {
 		if (node == null) {
-			new Node(val);
+			return new Node(val);
 		}
 		if (val <= node.value) {
 			node.left = insertIntoBinaryTree(node.left, val);
@@ -32,4 +34,25 @@ public class BinaryTree {
 		}
 		return node;
 	}
+	
+	public void inorder() {
+		if (root == null) {
+			return ;
+		}
+		Node node = root;
+		Stack<Node> stack = new Stack<Node>();
+		while (node != null || !stack.isEmpty()) {
+			if (node == null) {
+				node = stack.pop();
+				System.out.print(node.value + " ");
+				node = node.right;
+			}
+			if (node != null) {
+				stack.push(node);
+				node = node.left;
+			}
+		}
+		System.out.println();
+	}
+	
 }

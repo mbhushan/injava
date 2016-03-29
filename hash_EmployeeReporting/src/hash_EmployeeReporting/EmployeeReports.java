@@ -52,13 +52,13 @@ public class EmployeeReports {
 				continue;
 			}
 			ArrayList<String> elist = new ArrayList<String>();
-			int count = 0;
+			//int count = 0;
 			if (revMap.containsKey(mgr)) {
 				elist = revMap.get(mgr);
 				//count = ecMap.get(mgr);
 			}
 			elist.add(emp);
-			++count;
+			//++count;
 			revMap.put(mgr, elist);
 			//ecMap.put(mgr, count);
 		}

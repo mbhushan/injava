@@ -31,8 +31,48 @@ public class RegexMatch {
 			System.out.println("String: " + S[i]);
 			System.out.println("Pattern: " + P[i]);
 			System.out.println("is Match: " + RM.isRegexMatchRecursive(S[i], P[i]));
+			System.out.println("is Match: " + RM.isMatchDP(S[i].toCharArray(), P[i].toCharArray()));
 			System.out.println();
 		}
+	}
+	
+	/*
+	 * Dynamic Programming Solution
+	 */
+	
+	public boolean isMatchDP(char [] S, char [] P) {
+		//replace multiple * with one *
+        //e.g a**b***c --> a*b*c
+		int writeIndex = 0;
+		boolean isFirst = true;
+		
+		for (int i=0; i<P.length; i++) {
+			if (P[i] == '*') {
+				if (isFirst) {
+					P[writeIndex++] = P[i];
+					isFirst = false;
+				}
+			} else {
+				P[writeIndex++] = P[i];
+				isFirst = true;
+			}
+		}
+		
+		boolean [][] T = new boolean[S.length+1][writeIndex+1];
+		if (writeIndex > 0 && P[0] == '*') {
+			T[0][1] = true;
+		}
+		T[0][0] = true;
+		for (int i=1; i<T.length; i++) {
+			for (int j=1; j<T[0].length; j++) {
+				if (P[j-1] == '?' || S[i-1] == P[j-1]) {
+					T[i][j] = T[i-1][j-1];
+				} else if (P[j-1] == '*') {
+					T[i][j] = T[i-1][j] || T[i][j-1];
+				}
+			}
+		}
+		return T[S.length][writeIndex];
 	}
 	
 	/**

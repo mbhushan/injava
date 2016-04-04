@@ -1,6 +1,11 @@
 package u_WordBreakProblem;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class WordBreak {
@@ -78,6 +83,81 @@ public class WordBreak {
 		return buffer.toString();
 	}
 
+	/**
+     * Prints all the words possible instead of just one combination.
+     * Reference
+     * https://leetcode.com/problems/word-break-ii/
+     */
+    public List<String> wordBreakTopDown(String s) {
+        Map<Integer, List<String>> dp = new HashMap<>();
+        int max = 0;
+        for (String s1 : dict) {
+            max = Math.max(max, s1.length());
+        }
+        return wordBreakUtil(s,  dp, 0, max);
+    }
+
+    private List<String> wordBreakUtil(String s,  Map<Integer, List<String>> dp, int start, int max) {
+        if (start == s.length()) {
+            return Collections.singletonList("");
+        }
+
+        if (dp.containsKey(start)) {
+            return dp.get(start);
+        }
+
+        List<String> words = new ArrayList<>();
+        for (int i = start; i < start + max && i < s.length(); i++) {
+            String newWord = s.substring(start, i + 1);
+            if (!dict.contains(newWord)) {
+                continue;
+            }
+            List<String> result = wordBreakUtil(s, dp, i + 1, max);
+            for (String word : result) {
+                String extraSpace = word.length() == 0 ? "" : " ";
+                words.add(newWord + extraSpace + word);
+            }
+        }
+        dp.put(start, words);
+        return words;
+    }
+
+    /**
+     * Check if any one solution exists.
+     * https://leetcode.com/problems/word-break/
+     */
+    public boolean wordBreakTopDownOneSolution(String s) {
+        Map<Integer, Boolean> dp = new HashMap<>();
+        int max = 0;
+        for (String s1 : dict) {
+            max = Math.max(max, s1.length());
+        }
+        return wordBreakTopDownOneSolutionUtil(s, 0, max, dp);
+
+    }
+
+    private boolean wordBreakTopDownOneSolutionUtil(String s,  int start, int max, Map<Integer, Boolean> dp) {
+        if (start == s.length()) {
+            return true;
+        }
+
+        if (dp.containsKey(start)) {
+            return dp.get(start);
+        }
+
+        for (int i = start; i < start + max && i < s.length(); i++) {
+            String newWord = s.substring(start, i + 1);
+            if (!dict.contains(newWord)) {
+                continue;
+            }
+            if (wordBreakTopDownOneSolutionUtil(s, i + 1, max, dp)) {
+                dp.put(start, true);
+                return true;
+            }
+        }
+        dp.put(start, false);
+        return false;
+    }
 	/*
 	 * recursive version of the word break problem
 	 */

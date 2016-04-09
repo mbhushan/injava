@@ -14,8 +14,28 @@ public class BracketMusings {
 		for (int i=0; i<brackets.length; i++) {
 			System.out.println("are brackets matching: " + BM.matchingBrackets(brackets[i]));
 		}
+		
+		String [] inputs = { "()()()", "((())", "((((()))))" };
+		for (String st: inputs) {
+			System.out.println("matching brackets: " + BM.matchBracketRecursive(st.toCharArray(), 0, 0));
+		}
 	}
 
+	public boolean matchBracketRecursive(char [] input, int pos, int openCount) {
+		if (input.length == pos) {
+			return openCount == 0;
+		}
+		
+		if (input[pos] == '(') {
+			openCount++;
+		} else {
+			openCount--;
+		}
+		if (openCount < 0) {
+			return false;
+		}
+		return matchBracketRecursive(input, pos+1, openCount);
+	}
 	public boolean matchingBrackets(String brackets) {
 		Stack<Character> stack = new Stack<Character>();
 		

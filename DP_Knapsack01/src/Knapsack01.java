@@ -1,3 +1,6 @@
+import java.util.HashMap;
+import java.util.Map;
+
 /*
   * 0/1 Knapsack Problem - Given items of certain weights/values and maximum allowed weight
  * how to pick items to pick items from this set to maximize sum of value of items such that
@@ -16,6 +19,68 @@ c[i,w]  =	| c[i-1, w]	if wi ≥ 0
  */
 public class Knapsack01 {
 	
+	
+	class Index {
+		int remainingWeight;
+		int remainingItems;
+		
+		@Override
+		public boolean equals(Object o) {
+			if (this == o) { return true; }
+			if (o == null || getClass() != o.getClass() ) {
+				return false;
+			}
+			Index index = (Index)o;
+			
+			if (remainingWeight != index.remainingWeight) {
+				return false;
+			}
+			return remainingItems == index.remainingItems;
+		}
+		
+		@Override
+		public int hashCode() {
+			int result = remainingWeight;
+			result = 31 * result + remainingItems;
+			return result;
+		}
+	}
+	
+	public int knapsackRecursiveMemo(int [] values, int [] weights, int W) {
+		HashMap<Index, Integer> hmap = new HashMap<Index, Integer>();
+		return knapsackRecMemoUtil(values, weights, W, values.length, 0, hmap);
+	}
+	
+	private int knapsackRecMemoUtil(int [] values, int [] weights, int remainingWeight, int totalItems, int currentItem, 
+			HashMap<Index, Integer> hmap) {
+		if(currentItem >= totalItems || remainingWeight <= 0) {
+            return 0;
+        }
+		
+		//fom a key based on remainingWeight and remainingCount
+        Index key = new Index();
+        key.remainingItems = totalItems - currentItem -1;
+        key.remainingWeight = remainingWeight;
+
+        //see if key exists in map. If so then return the maximumValue for key stored in map.
+        if(hmap.containsKey(key)) {
+            return hmap.get(key);
+        }
+        int maxValue;
+        
+      //if weight of item is more than remainingWeight then try next item by skipping current item
+        if(remainingWeight < weights[currentItem]) {
+            maxValue = knapsackRecMemoUtil(values, weights, remainingWeight, totalItems, currentItem + 1, hmap);
+        } else {
+            //try to get maximumValue of either by picking the currentItem or not picking currentItem
+            maxValue = Math.max(values[currentItem] + knapsackRecMemoUtil(values, weights, remainingWeight - weights[currentItem], totalItems, currentItem + 1, hmap),
+            		knapsackRecMemoUtil(values, weights, remainingWeight, totalItems, currentItem + 1, hmap));
+        }
+        //memoize the key with maxValue found to avoid recalculation
+        hmap.put(key, maxValue);
+        return maxValue;
+	}
+	
 	public static void main(String [] args) {
 		int [] weights = {1, 3, 4, 5};
 		int [] values = {1, 4, 5, 7};
@@ -23,6 +88,7 @@ public class Knapsack01 {
 		
 		Knapsack01 K = new Knapsack01();
 		System.out.println("knapsack optimal value: " + K.knapsack01DP(values, weights, W));
+		System.out.println("knapsack optimal value recursive with memoization: " + K.knapsackRecursiveMemo(values, weights, W));
 	}
 
 	public int knapsack01DP(int [] values, int [] weights, int W) {

@@ -11,7 +11,7 @@ public class President {
 	
 	private President() {}
 	
-	public static President getPresident() {
+	public synchronized static President getPresident() {
 		if (president == null) {
 			president = new President();
 		}

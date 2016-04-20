@@ -1,3 +1,5 @@
+import java.util.Stack;
+
 
 
 class TreeNode {
@@ -17,6 +19,24 @@ public class BinaryTree {
 	
 	BinaryTree() {
 		root = null;
+	}
+	
+	
+	public void preorder() {
+		TreeNode node = root;
+		Stack<TreeNode> stack = new Stack<TreeNode>();
+		stack.push(node);
+		
+		while (!stack.isEmpty()) {
+			TreeNode curr = stack.pop();
+			System.out.print(curr.value + " ");
+			if (curr.right != null) {
+				stack.push(curr.right);
+			}
+			if (curr.left != null) {
+				stack.push(curr.left);
+			}
+		}
 	}
 	
 	

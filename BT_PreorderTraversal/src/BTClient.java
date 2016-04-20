@@ -11,6 +11,10 @@ public class BTClient {
 		BinaryTree BT = new BinaryTree();
 		int [] A = {20, 10, 30, 5, 12, 23, 35, 3, 7};
 		BT.buildBinaryTree(A);
+		System.out.println("printing inorder:");
 		BT.inorder();
+		System.out.println();
+		System.out.println("preorder traversal: ");
+		BT.preorder();
 	}
 }

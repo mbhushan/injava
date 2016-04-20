@@ -21,6 +21,24 @@ public class BinaryTree {
 		root = null;
 	}
 	
+	public void inorderIter() {
+		TreeNode node = root;
+		Stack<TreeNode> stack = new Stack<TreeNode>();
+		stack.push(node);
+		
+		while (!stack.isEmpty() || node != null) {
+			if (node != null) {
+				stack.push(node.left);
+				node = node.left;
+			} else {
+				node = stack.pop();
+				System.out.print(node.value + " ");
+				node = node.right;
+			}
+		}
+		System.out.println();
+	}
+	
 	
 	public void preorder() {
 		TreeNode node = root;

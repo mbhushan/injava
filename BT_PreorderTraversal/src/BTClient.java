@@ -16,5 +16,7 @@ public class BTClient {
 		System.out.println();
 		System.out.println("preorder traversal: ");
 		BT.preorder();
+		System.out.println("inorder iterative: ");
+		BT.inorder();
 	}
 }

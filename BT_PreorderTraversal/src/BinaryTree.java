@@ -21,6 +21,30 @@ public class BinaryTree {
 		root = null;
 	}
 	
+	//very simple iterative postorder traversal.
+	public void postorder() {
+		TreeNode node = root;
+		Stack<TreeNode> stack = new Stack<TreeNode>();
+		stack.push(node);
+		
+		while (!stack.isEmpty()) {
+			TreeNode curr = stack.peek();
+			if (curr.left == null && curr.right == null) {
+				System.out.print(stack.pop().value + " ");
+			} else {
+				if (curr.right != null) {
+					stack.push(curr.right);
+					curr.right = null;
+				}
+				if (curr.left != null) {
+					stack.push(curr.left);
+					curr.left = null;
+				}
+			}
+		}
+		System.out.println();
+	}
+	
 	public void inorderIter() {
 		TreeNode node = root;
 		Stack<TreeNode> stack = new Stack<TreeNode>();

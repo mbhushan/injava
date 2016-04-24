@@ -23,10 +23,10 @@ public class ConstructTree {
 		int [] preorder = {1, 2, 4, 5, 3, 7, 6, 8};
 		
 		CT.buildTree(inorder, preorder);
+		//System.out.println("postorder: ");
+		//CT.postorder();
 		System.out.println("preorder: ");
 		CT.preorder();
-		System.out.println("postorder: ");
-		CT.postorder();
 	}
 	
 	public void postorder() {

@@ -49,12 +49,12 @@ package i_FindOptimalKeyStrokes;
 public class OptimalKeystrokes {
 
 	public static void main(String[] args) {
-		int n = 20;
+		int n = 9;
 
-		findoptimalDP(8);
-		for (int i = 1; i <= n; i++) {
-			//System.out.println("Max A's with " + i + " keystrokes: "
-			//		+ findoptimal(i));
+		//findoptimalDP(8);
+		for (int i = 8; i <= n; i++) {
+			System.out.println("Max A's with " + i + " keystrokes: "
+					+ findoptimal(i));
 			System.out.println("DP Max A's with " + i + " keystrokes: "
 					+ findoptimalDP(i));
 		}
@@ -63,18 +63,18 @@ public class OptimalKeystrokes {
 
 	public static int findoptimal(int N) {
 		// The optimal string length is N when N is smaller than 7
-		if (N <= 6)
+		if (N <= 7)
 			return N;
 
 		// Initialize result
 		int max = 0;
 
 		// TRY ALL POSSIBLE BREAK-POINTS
-		// For any keystroke N, we need to loop from N-3 keystrokes
+		// For any keystroke N, we need to loop from N-4 keystrokes
 		// back to 1 keystroke to find a breakpoint 'b' after which we
 		// will have Ctrl-A, Ctrl-C and then only Ctrl-V all the way.
-		for (int b = N - 3; b >= 1; b--) {
-			int curr = (N - b - 1) * findoptimal(b);
+		for (int b = N - 4; b >= 1; b--) {
+			int curr = (N - b - 2) * findoptimal(b);
 			if (curr > max)
 				max = curr;
 		}
@@ -83,7 +83,7 @@ public class OptimalKeystrokes {
 
 	public static int findoptimalDP(int N) {
 		// The optimal string length is N when N is smaller than 7
-		if (N <= 6)
+		if (N <= 7)
 			return N;
 
 		// An array to store result of subproblems
@@ -102,11 +102,11 @@ public class OptimalKeystrokes {
 			// For any keystroke n, we need to loop from n-3 keystrokes
 			// back to 1 keystroke to find a breakpoint 'b' after which we
 			// will have ctrl-a, ctrl-c and then only ctrl-v all the way.
-			for (int b = n - 3; b >= 1; b--) {
+			for (int b = n - 4; b >= 1; b--) {
 				// if the breakpoint is at b'th keystroke then
 				// the optimal string would have length
 				// (n-b-1)*screen[b-1];
-				int curr = (n - b - 1) * screen[b - 1];
+				int curr = (n - b - 2) * screen[b - 1];
 				if (curr > screen[n - 1])
 					screen[n - 1] = curr;
 			}

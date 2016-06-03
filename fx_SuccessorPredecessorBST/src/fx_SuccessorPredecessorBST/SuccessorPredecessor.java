@@ -28,8 +28,60 @@ public class SuccessorPredecessor {
 			}
 			System.out.println("successor of " + A[i] + " is: " + p.value);
 		}
+		System.out.println("");
+		
+		//predecessors of BST nodes.
+		System.out.println("predecessors of BST nodes: ");
+		for (int i=0; i<A.length; i++) {
+			TreeNode node = SP.findNode(A[i]);
+			TreeNode p = SP.inorderPredecessor(node);
+			if (p == null) {
+				System.out.println("predecessor of " + A[i] + " is: " + "null");
+				continue;
+			}
+			System.out.println("predecessor of " + A[i] + " is: " + p.value);
+		}
 	}
 	
+	public TreeNode inorderPredecessor(TreeNode node) {
+		if (node.left != null) {
+			return maxValue(node.left);
+		}
+		
+		TreeNode pr = node.parent;
+		while (pr != null && pr.left != null && pr.left.equals(node)) {
+			node = pr;
+			pr = pr.parent;
+		}
+		return pr;
+	}
+	
+	public TreeNode inorderPredecessorNoParentPtr(TreeNode node) {
+		if (node.left != null) {
+			return maxValue(node.left);
+		}
+		
+		TreeNode curr = root;
+		TreeNode pred = null;
+		while (curr != null) {
+			if (node.value < curr.value) {
+				curr = curr.left;
+			} else if (node.value > curr.value) {
+				pred = curr;
+				curr = curr.right;
+			} else {
+				break;
+			}
+		}
+		return pred;
+	}
+	
+	private TreeNode maxValue(TreeNode node) {
+		while (node.right != null) {
+			node = node.right;
+		}
+		return node;
+	}
 	public TreeNode inorderSuccessorNoParentPtr(TreeNode node) {
 		if (node.right != null) {
 			return minValue(node.right);

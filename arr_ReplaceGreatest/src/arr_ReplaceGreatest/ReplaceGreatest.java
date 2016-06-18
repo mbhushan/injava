@@ -11,6 +11,13 @@ public class ReplaceGreatest {
 
 	public static void main(String[] args) {
 		ReplaceGreatest rg = new ReplaceGreatest();
+		int [] A = {16, 17, 4, 3, 5, 2};
+		rg.replaceGreatest(A);
+		System.out.println("after replacement: ");
+		for (int x : A) {
+			System.out.print(x + " ");
+		}
+		System.out.println();
 		
 	}
 	
@@ -18,5 +25,16 @@ public class ReplaceGreatest {
 		if (A == null || A.length < 1) {
 			return ;
 		}
+		
+		int maxSoFar = A[A.length-1];
+		A[A.length-1] = -1;
+		for (int i=A.length-2; i>=0; i--) {
+			int buff = A[i];
+			A[i] = maxSoFar;
+			if (maxSoFar < buff) {
+				maxSoFar = buff;
+			}
+		}
+		return;
 	}
 }

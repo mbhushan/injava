@@ -8,7 +8,8 @@ public class Combinations {
 	public static void main(String[] args) {
 		Combinations com = new Combinations();
 		
-		int [] digits = {1,1,2,3,3};
+		//int [] digits = {1,1,2,3,3};
+		int [] digits = {1,2,3};
 		
 		System.out.println("total combinations: " + com.findCombination(digits));
 	}

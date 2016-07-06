@@ -28,7 +28,19 @@ public class ParenthesisOperations {
 		int right = 0;
 		int index = 0;
 		StringBuffer sb = new StringBuffer();
-		int len = 7;
+		int len = 0;
+		//int pair = 0;
+		int leftParen = 0;
+		int rightParen = 0;
+		for (int i=0; i<paren.length; i++) {
+			if (paren[i] == '(') {
+				++leftParen;
+			}
+			if (paren[i] == ')') {
+				++rightParen;
+			}
+		}
+		len = Math.min(leftParen, rightParen);
 		fixParenthesis(paren, left, right, index, sb, len);
 	}
 	
@@ -38,22 +50,26 @@ public class ParenthesisOperations {
 			return ;
 		}
 		
-		if (index == paren.length || right > left) {
+		if (left > len || right > len || index == paren.length) {
 			return;
 		}
 		
+		
+		int size = sb.length();
+		
 		if (paren[index] == '(') {
 				sb.append('(');
-				fixParenthesis(paren, left+1, right, index+1, sb, len);
+				fixParenthesis(paren, left+1, right, index, sb, len);
 				sb.deleteCharAt(sb.length()-1);
 				fixParenthesis(paren, left, right, index+1, sb, len);
 		} else if (paren[index] == ')') {
 				sb.append(')');
-				fixParenthesis(paren, left, right+1, index+1, sb, len);
+				fixParenthesis(paren, left, right+1, index, sb, len);
 				sb.deleteCharAt(sb.length()-1);
 				fixParenthesis(paren, left, right, index+1, sb, len);
 		} else {
 			fixParenthesis(paren, left, right, index+1, sb.append(paren[index]), len);
 		} 
+		sb.setLength(size);
 	}
 }

@@ -18,6 +18,7 @@ public class ParenthesisValidity {
 		ParenthesisValidity po = new ParenthesisValidity();
 		String [] str = {"()())()", "(a)())()", ")("}; 
 		
+		po.genValidParen("(()))".toCharArray());
 		for (int i=0; i<str.length; i++) {
 			System.out.println("input: " + str[i]);
 			System.out.println("valid strings: ");

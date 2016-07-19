@@ -147,3 +147,4 @@ class DistanceComparator implements Comparator<Distance> {
 		return d1.distance - d2.distance;
 	}
 }
+

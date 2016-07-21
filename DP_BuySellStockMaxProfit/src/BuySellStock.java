@@ -17,9 +17,12 @@ public class BuySellStock {
 			System.out.println("max profit with 1 transaction: " + bss.maxProfitOneTransaction(A[i]));
 			System.out.println("max profit with unlimited transaction: " + bss.maxProfitUnlimitedTransaction(A[i]));
 			System.out.println("max profit with 2 transactions: " + bss.maxProfitTwoTransactions(A[i]));
+			System.out.println("max profit with k (=2) transaction: " + bss.maxProfitKTransactions(A[i], 2));
+			System.out.println("max profit with k (=3) transaction: " + bss.maxProfitKTransactions(A[i], 3));
 			System.out.println();
 		}
 	}
+	
 	
 	/*
 	 * Say you have an array for which the ith element is the price of a given stock on day i.
@@ -27,9 +30,29 @@ public class BuySellStock {
 	 */
 	
 	public int maxProfitKTransactions(int [] prices, int k) {
-		int maxProfit = 0;
+		int [][] T = new int[k+1][prices.length];
 		
-		return maxProfit;
+		//populate first row with 0
+		for (int i=0; i<prices.length; i++) {
+			T[0][i] = 0;
+		}
+		//populate first col with 0 - since you can only buy and profit would be zero
+		for (int i=0; i<=k; i++) {
+			T[i][0] = 0;
+		}
+		
+		for (int i=1; i<=k; i++) {
+			int maxDiff = -prices[0];
+			for (int j=1; j<prices.length; j++) {
+				//not transacting on jth day
+				int v1 = T[i][j-1];
+				int v2 = prices[j] + maxDiff; //alternate: v2 = prices[j] - prices[m] + T[i-1][m] for m=0 ... j-1
+				T[i][j] = Math.max(v1, v2);
+				maxDiff = Math.max(maxDiff, T[i-1][j] - prices[j]);
+			}
+		}
+		
+		return T[k][prices.length-1];
 	}
 	
 	

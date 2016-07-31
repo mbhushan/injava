@@ -19,7 +19,10 @@ public class BalloonBursting {
 				{2, 4, 3, 5}
 		};
 		
-		bb.maxCoinsFromBalloon(A[0]);
+		for (int i=0; i<A.length; i++) {
+			int result = bb.maxCoinsFromBalloon(A[i]);
+			System.out.println("max coins: " + result);
+		}
 	}
 	
 	public int maxCoinsFromBalloon(int [] A) {
@@ -83,7 +86,7 @@ public class BalloonBursting {
 			}
 			System.out.println();
 		}
-		return 0;
+		return T[0][size-1].value;
 	}
 	
 }

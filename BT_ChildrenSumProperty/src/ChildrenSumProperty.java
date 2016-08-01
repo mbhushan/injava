@@ -19,7 +19,23 @@ public class ChildrenSumProperty {
         cs.root.left.left = new TreeNode(3);
         cs.root.left.right = new TreeNode(5);
         cs.root.right.right = new TreeNode(2);
+        
+        System.out.println("has children sum property: " + cs.hasChildrenSumProperty(cs.root));
 		
+	}
+	
+	public boolean hasChildrenSumProperty(TreeNode node) {
+		if (node == null || (node.left == null && node.right == null)) {
+			return true;
+		}
+		
+		int leftData = node.left != null? node.left.data : 0;
+		int rightData = node.right != null ? node.right.data : 0;
+		
+		if (node.data == (leftData + rightData) && hasChildrenSumProperty(node.left) && hasChildrenSumProperty(node.right)) {
+			return true;
+		}
+		return false;
 	}
 }
 

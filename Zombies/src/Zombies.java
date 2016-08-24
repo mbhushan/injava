@@ -2,6 +2,10 @@ import javax.swing.text.ZoneView;
 
 
 public class Zombies {
+	
+	public static void main(String[] args) {
+		
+	}
 
 	static int zombieCluster(String[] zombies) {
 		if (zombies == null || zombies.length < 1) {
